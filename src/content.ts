@@ -1,15 +1,25 @@
+import type { PlasmoCSConfig } from "plasmo"
+
 export {}
+
+export const config: PlasmoCSConfig = {
+  matches: ["https://www.disneyplus.com/play/*"],
+  all_frames: true
+}
 
 window.addEventListener("keydown", (evt: KeyboardEvent) => {
   evt.preventDefault()
 
-  const playButton = document.querySelector(
+  const activeElement = document.activeElement as HTMLElement | null
+  if (activeElement) {
+    activeElement.blur()
+  }
+
+  const button = document.querySelector(
     "button.play-button"
   ) as HTMLButtonElement | null
-  if (playButton === null) return
 
-  if (evt.code === "Space") {
-    playButton.focus()
-    playButton.click()
+  if (button) {
+    setTimeout(() => button.click(), 0)
   }
 })
